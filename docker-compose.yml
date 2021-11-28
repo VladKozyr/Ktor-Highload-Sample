@@ -1,0 +1,57 @@
+version: "3.6"
+
+services:
+  app:
+    container_name: "highload-kma"
+    build: ./
+    volumes:
+      - ./:/ktor-highload
+    ports:
+      - "8080:8080"
+    expose:
+      - 8080
+    networks:
+      - main-network
+    depends_on:
+      - database
+
+  database:
+    container_name: "postgresql"
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=ktor
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=secret
+    hostname: "localhost"
+    ports:
+      - "5432:5432"
+    expose:
+      - 5432
+    networks:
+      - main-network
+
+  redis:
+    container_name: "redis"
+    image: redis:alpine
+    command: redis-server
+
+    ports:
+      - "6379:6379"
+    networks:
+      - main-network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: "rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - main-network
+
+networks:
+  main-network:
+    driver: bridge
