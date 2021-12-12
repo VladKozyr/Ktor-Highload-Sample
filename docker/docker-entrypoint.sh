@@ -5,7 +5,7 @@ set -x
 
 case $1 in
   test)
-    exec ./gradlew test
+    exec chmod +x ./gradlew test
     ;;
 esac
 
