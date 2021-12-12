@@ -4,8 +4,6 @@ services:
   app:
     container_name: "highload-kma"
     build: ./
-    volumes:
-      - ./:/ktor-highload
     ports:
       - "8080:8080"
     expose:

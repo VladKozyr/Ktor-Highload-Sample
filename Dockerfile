@@ -4,6 +4,7 @@ RUN apk add --no-cache bash
 
 WORKDIR /ktor-highload
 
+COPY . ktor-highload/
 COPY docker/docker-entrypoint.sh /
 
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
