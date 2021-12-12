@@ -4,9 +4,8 @@ RUN apk add --no-cache bash
 
 WORKDIR /ktor-highload
 
-COPY . ktor-highload/
-COPY docker/docker-entrypoint.sh /
+COPY . /ktor-highload
 
-ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+ENTRYPOINT ["sh", "docker/docker-entrypoint.sh"]
 
 CMD ./gradlew run
